@@ -1,54 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}書籍の一覧{% endblock title %}
-
-{% block extrahead %}
-<link href="{% static 'css/blog.css' %}" rel="stylesheet">
-{% endblock %}
+{% block title %}Hydrophiidae開発日記{% endblock title %}
 
 {% block content %}
-    <h3 class="page-header">書籍の一覧</h3>
-    <a href="{% url 'cms:book_add' %}" class="btn btn-default btn-sm">追加</a>
-    {% for blog in blogs %}
-<div class="row">
-    <div class="col-sm-8 blog-main">
-        <div class="blog">
-            <h2 class="blog-title">{{ blog.title }}</h2>
-            <pre class="blog-body">{{ blog.log_body}}</pre>
-            <p>投稿日時:{{ blog.data }} タグ:{{ blog.tag }}</p>
-        </div>
-        <!-- /.blog-post -->
+
+<section>
+    <div class="container">
+        <h2 class="page-header">Hydrophiidae開発日記</h2>
     </div>
-    {% endfor %}
-    <nav>
-        <ul class="pager">
-            <li><a href="#">Previous</a></li>
-            <li><a href="#">Next</a></li>
-        </ul>
-    </nav>
+</section>
 
-    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-        <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                {% for blog in blogs %}
+                <div class="blog">
+                        <div class=""><h2 class="blog-title">{{ blog.title }}</h2></div>
+                        <h6>投稿日時:{{ blog.data }} タグ:<a href="">{{ blog.tag }}</a></h6>
+                        <pre class="blog-body">{{ blog.log_body}}</pre>
 
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet
-                fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        </div>
-        <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li>
-            </ol>
+                </div>
+                {% endfor %}
+
+                <div class="pager">
+                    <div class="text-center">
+                        <span class="step-links">
+                        {% if blogs.has_previous %}
+                            <a href="?page={{ blogs.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+                        </span>
+
+                        {% if blogs.has_next %}
+                            <a href="?page={{ blogs.next_page_number }}">next</a>
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                <div class="sidebar-module sidebar-module-inset">
+                    <h4>About</h4>
+                    <p>オンラインプログラミング学習環境サービスHydrophiidaeの<a href="">開発者</a>がHydrophiidaeのお知らせから開発
+                    のことまで徒然なるままに書いていきますよー</p>
+                </div>
+                <div class="sidebar-module">
+                    <h4>ソースコードを公開しています</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="https://github.com/meer07">GitHub</a></li>
+                    </ol>
+                </div>
+                <div class="sidebar-module">
+                    <h4>現在就職活動中です。興味ある方は下記のリンクをご覧ください</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="">プロフィール</a></li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <footer class="blog-footer">
-        <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.
-        </p>
-
-        <p><a href="#">Back to top</a></p>
-    </footer>
-</div>
-    {% endblock content %}
+<footer class="blog-footer">
+    <p>Blog built by <a href="#">Hydrophiidae</a></p>
+    <p><a href="#">Back to top</a></p>
+</footer>
+{% endblock content %}
