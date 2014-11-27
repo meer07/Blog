@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<section>
+<section xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <h2 class="page-header">Hydrophiidae開発日記</h2>
     </div>
@@ -17,9 +17,8 @@
                 {% for blog in blogs %}
                 <div class="blog">
                         <div class=""><h2 class="blog-title">{{ blog.title }}</h2></div>
-                        <h6>投稿日時:{{ blog.data }} タグ:<a href="">{{ blog.tag }}</a></h6>
-                        <pre class="blog-body">{{ blog.log_body}}</pre>
-
+                        <h6>投稿日時:{{ blog.date }} タグ:<a href="./search?tag={{ blog.tag }}">{{ blog.tag }}</a></h6>
+                        <div class="blog-body">{{ blog.log_body | safe}}</div>
                 </div>
                 {% endfor %}
 
@@ -45,11 +44,12 @@
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
                 <div class="sidebar-module sidebar-module-inset">
                     <h4>About</h4>
-                    <p>オンラインプログラミング学習環境サービスHydrophiidaeの<a href="">開発者</a>がHydrophiidaeのお知らせから開発
+                    <p>オンラインpython実行環境Hydrophiidaeの<a href="">開発者</a>がHydrophiidaeのお知らせから開発
                     のことまで徒然なるままに書いていきますよー</p>
                 </div>
                 <div class="sidebar-module">
-                    <h4>ソースコードを公開しています</h4>
+                    <p><h4>ソースコードを公開しています。</h4></p>
+                    <h4>(実はpythonよりもスマホアプリのレポジトリのほうが多かったりします)</h4>
                     <ol class="list-unstyled">
                         <li><a href="https://github.com/meer07">GitHub</a></li>
                     </ol>
@@ -59,6 +59,13 @@
                     <ol class="list-unstyled">
                         <li><a href="">プロフィール</a></li>
                     </ol>
+                </div>
+
+                <div class="sidebar-module">
+                    <h4>タグ一覧</h4>
+                        {% for tag in tag_list%}
+                        <p><a href="./search?tag={{ tag.tag }}">{{ tag.tag }}</a></p>
+                        {% endfor %}
                 </div>
             </div>
         </div>
